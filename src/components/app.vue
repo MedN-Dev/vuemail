@@ -1,23 +1,29 @@
 <template>
-  <div>
-    <TopHeader />
-    <SubHeader />
-    <TopNav />
-    <div class="content">
-      <router-view></router-view>
-    </div>
-    <Compose />
-    <Flash />
+  <div id="appRoot">
+    <template>
+      <v-app id="inspire" class="app">
+        <TopHeader />
+        <v-content>
+          <!-- Page Header -->
+          <div class="page-wrapper">
+            <SubHeader />
+            <TopNav />
+            <router-view></router-view>
+          </div>
+          <Compose />
+          <Flash />
+           <!-- App Footer -->
+          <v-footer height="auto" class="white pa-3 app--footer">
+            <span class="caption">mednabouli.com Design &copy; {{ new Date().getFullYear() }}</span>
+            <v-spacer></v-spacer>
+            <span class="caption mr-1"> Make With Love </span> <v-icon color="pink" small>favorite</v-icon>
+          </v-footer>
+        </v-content>
+      </v-app>
+    </template>
+
   </div>
 </template>
-
-<style lang="scss" scoped>
-.content {
-  overflow: auto;
-  overflow-x: hidden;
-  margin: 0 15px 0 185px;
-}
-</style>
 
 <script>
 import '../scss/app.scss'

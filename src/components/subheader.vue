@@ -1,33 +1,44 @@
 <template>
-  <div class="sub-header">
-    <h1 class="app-name"><span>V</span>mail</h1>
-    <div class="paging" v-if="page">
-      <strong>{{ page.from }}-{{ page.to }}</strong>
-      of
-      <strong>{{ page.count }}</strong>
-      <div class="split-btn">
-        <a href class="btn btn-mini" title="Previous"><Icon name="prev" /></a>
-        <a href class="btn btn-mini" title="Next"><Icon name="next" /></a>
+  <v-card>
+    <v-toolbar card dense color="transparent">
+      <DropDown v-if="$route.name == 'inbox'">
+        <CheckBox :onChange="() => bulkToggle()" :selected="allSelected" :someSelected="someSelected" />
+        <Icon name="arrow_drop_down" />
+        <ul>
+          <li><a @click="selectAll">All</a></li>
+          <li><a @click="selectNone">None</a></li>
+          <li><a @click="selectRead">Read</a></li>
+          <li><a @click="selectUnread">Unread</a></li>
+        </ul>
+      </DropDown>
+      <v-toolbar-title><h4>Project</h4></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div class="paging" v-if="page">
+        <strong>{{ page.from }}-{{ page.to }}</strong>
+        of
+        <strong>{{ page.count }}</strong>
+        <div class="split-btn">
+          <a href title="Previous"><Icon name="keyboard_arrow_left" /></a>
+          <a href title="Next"><Icon name="keyboard_arrow_right" /></a>
+        </div>
       </div>
-    </div>
-    <router-link to="/" v-if="$route.name != 'inbox'" class="btn" title="Back to Inbox"><Icon name="back" /></router-link>
-    <DropDown class="btn" v-if="$route.name == 'inbox'">
-      <CheckBox :onChange="() => bulkToggle()" :selected="allSelected" :someSelected="someSelected" />
-      <Icon name="down" />
-      <ul>
-        <li><a @click="selectAll">All</a></li>
-        <li><a @click="selectNone">None</a></li>
-        <li><a @click="selectRead">Read</a></li>
-        <li><a @click="selectUnread">Unread</a></li>
-      </ul>
-    </DropDown>
-    <div class="split-btn" v-if="$route.name == 'thread' || someSelected">
-      <a href class="btn" title="Archive"><Icon name="archive" /></a>
-      <a href class="btn" title="Report Spam"><Icon name="spam" /></a>
-      <a href class="btn" title="Delete"><Icon name="delete" /></a>
-    </div>
-    <a href class="btn" v-if="$route.name == 'inbox' && this.noneSelected"><Icon name="refresh" /></a>
-  </div>
+      <router-link to="/" v-if="$route.name != 'inbox'" title="Back to Inbox">
+        <Icon name="backspace" />
+      </router-link>
+
+      <div v-if="$route.name == 'thread' || someSelected">
+        <a href title="Archive"><Icon name="archive" /></a>
+        <a href title="Report Spam"><Icon name="spam" /></a>
+        <a href title="Delete"><Icon name="delete" /></a>
+      </div>
+      <a href v-if="$route.name == 'inbox' && this.noneSelected"><Icon name="refresh" /></a>
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </v-toolbar>
+    <v-divider></v-divider>
+
+</v-card>
 </template>
 
 <style lang="scss" scoped>

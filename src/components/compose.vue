@@ -33,7 +33,7 @@
           <a class="cc" @click="ccActive = true" v-if="!ccActive">Cc</a>
           <DropDown class="from-address">
             <span>{{ message.from | nameAndEmail }}</span>
-            <Icon name="down" />
+            <Icon name="arrow_drop_down" />
             <ul class="align-right">
               <li v-for="account in currentUser.accounts">
                 <a @click="message.from = account">{{ account | nameAndEmail }}</a>
